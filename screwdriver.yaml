@@ -1,0 +1,14 @@
+shared:
+  image: node:14
+jobs:
+  success:
+    requires: [ ~commit ]
+    steps:
+      - main: echo "main step"
+      - teardown-when-succeed: echo "teardown-when-succeed step"
+  failure:
+    requires: [ ~commit ]
+    steps:
+      - main: exit 1
+      - not-executed: echo "not-executed step"
+      - teardown-when-fail: echo "teardown-when-fail step"
